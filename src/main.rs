@@ -1,5 +1,5 @@
-use gtk::prelude::*;
-use gtk::{glib, Align, Application, ApplicationWindow, Button};
+use gtk4::{glib, Align, Application, ApplicationWindow, Button};
+use gtk4::prelude::{ApplicationExt, ApplicationExtManual, GtkWindowExt, WidgetExt};
 
 fn main() -> glib::ExitCode {
     let application = Application::new(
