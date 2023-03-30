@@ -4,11 +4,9 @@ use gtk4::traits::{BoxExt, GtkWindowExt, WidgetExt};
 
 
 pub(crate) fn load_css() {
-    // Load the CSS file and add it to the provider
     let provider = CssProvider::new();
     provider.load_from_data(include_str!("styles.css"));
 
-    // Add the provider to the default screen
     StyleContext::add_provider_for_display(
         &Display::default().expect("Could not connect to a display."),
         &provider,
@@ -34,6 +32,7 @@ pub(crate) fn build_ui(app: &Application) {
         .halign(Align::Center)
         .valign(Align::Center)
         .build();
+    home_label.add_css_class("home_title");
 
     let start_new: Button = Button::builder()
         .margin_top(200)
