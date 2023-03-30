@@ -1,4 +1,4 @@
-use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext, Image, Overlay, Orientation};
+use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext, Orientation};
 use gtk4::gdk::Display;
 use gtk4::prelude::{BoxExt, GtkWindowExt, WidgetExt};
 
@@ -21,17 +21,8 @@ pub(crate) fn build_ui(app: &Application) {
         .default_height(600)
         .build();
 
-    let background_image: Image = Image::from_file("src/gui/assets/image.png");
-    background_image.set_halign(Align::Center);
-    background_image.set_valign(Align::Center);
-    background_image.set_size_request(1000, 600);
-
-    // Create an Overlay widget and add the Image widget as a child
-    let overlay = Overlay::new();
-    overlay.add_overlay(&background_image);
-
     let option_box: Box = Box::builder()
-        .orientation(gtk4::Orientation::Vertical)
+        .orientation(Orientation::Vertical)
         .build();
 
     let home_label: Label = Label::builder()
@@ -67,11 +58,6 @@ pub(crate) fn build_ui(app: &Application) {
     load_save.add_css_class("home_button");
     option_box.append(&load_save);
 
-    // Add the option_box to the Overlay
-    overlay.add_overlay(&option_box);
-
-    // Set the Overlay as the child of the window
-    window.set_child(Some(&overlay));
-
+    window.set_child(Some(&option_box));
     window.show();
 }
