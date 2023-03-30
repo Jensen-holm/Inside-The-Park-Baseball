@@ -1,5 +1,5 @@
-use gtk4::{Align, Application, ApplicationWindow, Button};
-use gtk4::traits::{GtkWindowExt, WidgetExt};
+use gtk4::{Align, Application, ApplicationWindow, Button, Box};
+use gtk4::traits::{BoxExt, GtkWindowExt, WidgetExt};
 
 
 pub(crate) fn build_ui(app: &Application) {
@@ -10,16 +10,42 @@ pub(crate) fn build_ui(app: &Application) {
         .default_height(800)
         .build();
 
-    let button = Button::builder()
+    let option_box: Box = Box::builder()
+        .orientation(gtk4::Orientation::Vertical)
+        .build();
+
+    let start_new: Button = home_screen_button(
+        "Start New",
+        Align::Start,
+        Align::Start,
+    );
+
+    let load_save: Button = home_screen_button(
+        "Load Save",
+        Align::Start,
+        Align::Start,
+    );
+
+    option_box.append(&start_new);
+    option_box.append(&load_save);
+
+    window.set_child(Some(&option_box));
+    window.show();
+}
+
+
+fn home_screen_button(
+    txt: &str,
+    h_alignment: Align,
+    v_alignment: Align,
+) -> Button {
+    return Button::builder()
         .margin_top(10)
         .margin_bottom(10)
         .margin_start(10)
-        .margin_top(10)
-        .halign(Align::Center)
-        .valign(Align::Center)
-        .label("Click Me!")
+        .margin_bottom(10)
+        .halign(h_alignment)
+        .valign(v_alignment)
+        .label(txt)
         .build();
-
-    window.set_child(Some(&button));
-    window.show();
 }
