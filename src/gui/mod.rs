@@ -1,4 +1,4 @@
-use gtk4::{Align, Application, ApplicationWindow, Button, Box};
+use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label};
 use gtk4::traits::{BoxExt, GtkWindowExt, WidgetExt};
 
 
@@ -6,26 +6,42 @@ pub(crate) fn build_ui(app: &Application) {
     let window = ApplicationWindow::builder()
         .application(app)
         .title("Baseball Simulator Hub")
-        .default_width(1200)
-        .default_height(800)
+        .default_width(1000)
+        .default_height(600)
         .build();
 
     let option_box: Box = Box::builder()
         .orientation(gtk4::Orientation::Vertical)
         .build();
 
-    let start_new: Button = home_screen_button(
-        "Start New",
-        Align::Start,
-        Align::Start,
-    );
+    let home_label: Label = Label::builder()
+        .label("IOTP Baseball")
+        .margin_top(100)
+        .halign(Align::Center)
+        .valign(Align::Center)
+        .build();
 
-    let load_save: Button = home_screen_button(
-        "Load Save",
-        Align::Start,
-        Align::Start,
-    );
+    let start_new: Button = Button::builder()
+        .margin_top(200)
+        .margin_bottom(10)
+        .margin_start(10)
+        .margin_end(10)
+        .valign(Align::Center)
+        .halign(Align::Center)
+        .label("Start New Game")
+        .build();
 
+    let load_save: Button = Button::builder()
+        .margin_top(10)
+        .margin_bottom(10)
+        .margin_start(10)
+        .margin_end(10)
+        .valign(Align::Center)
+        .halign(Align::Center)
+        .label("Load Save Game")
+        .build();
+
+    option_box.append(&home_label);
     option_box.append(&start_new);
     option_box.append(&load_save);
 
@@ -33,19 +49,3 @@ pub(crate) fn build_ui(app: &Application) {
     window.show();
 }
 
-
-fn home_screen_button(
-    txt: &str,
-    h_alignment: Align,
-    v_alignment: Align,
-) -> Button {
-    return Button::builder()
-        .margin_top(10)
-        .margin_bottom(10)
-        .margin_start(10)
-        .margin_bottom(10)
-        .halign(h_alignment)
-        .valign(v_alignment)
-        .label(txt)
-        .build();
-}
