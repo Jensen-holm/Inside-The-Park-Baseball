@@ -1,6 +1,20 @@
-use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label};
+use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext};
+use gtk4::gdk::Display;
 use gtk4::traits::{BoxExt, GtkWindowExt, WidgetExt};
 
+
+pub(crate) fn load_css() {
+    // Load the CSS file and add it to the provider
+    let provider = CssProvider::new();
+    provider.load_from_data(include_str!("styles.css"));
+
+    // Add the provider to the default screen
+    StyleContext::add_provider_for_display(
+        &Display::default().expect("Could not connect to a display."),
+        &provider,
+        gtk4::STYLE_PROVIDER_PRIORITY_APPLICATION,
+    );
+}
 
 pub(crate) fn build_ui(app: &Application) {
     let window = ApplicationWindow::builder()
