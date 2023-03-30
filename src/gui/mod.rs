@@ -1,7 +1,6 @@
-use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext};
+use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext, Image, Overlay, Orientation};
 use gtk4::gdk::Display;
-use gtk4::traits::{BoxExt, GtkWindowExt, WidgetExt};
-
+use gtk4::prelude::{BoxExt, GtkWindowExt, WidgetExt};
 
 pub(crate) fn load_css() {
     let provider = CssProvider::new();
@@ -22,6 +21,15 @@ pub(crate) fn build_ui(app: &Application) {
         .default_height(600)
         .build();
 
+    let background_image: Image = Image::from_file("src/gui/assets/image.png");
+    background_image.set_halign(Align::Center);
+    background_image.set_valign(Align::Center);
+    background_image.set_size_request(1000, 600);
+
+    // Create an Overlay widget and add the Image widget as a child
+    let overlay = Overlay::new();
+    overlay.add_overlay(&background_image);
+
     let option_box: Box = Box::builder()
         .orientation(gtk4::Orientation::Vertical)
         .build();
@@ -33,6 +41,7 @@ pub(crate) fn build_ui(app: &Application) {
         .valign(Align::Center)
         .build();
     home_label.add_css_class("home_title");
+    option_box.append(&home_label);
 
     let start_new: Button = Button::builder()
         .margin_top(200)
@@ -43,6 +52,8 @@ pub(crate) fn build_ui(app: &Application) {
         .halign(Align::Center)
         .label("Start New Game")
         .build();
+    start_new.add_css_class("home_button");
+    option_box.append(&start_new);
 
     let load_save: Button = Button::builder()
         .margin_top(10)
@@ -53,12 +64,14 @@ pub(crate) fn build_ui(app: &Application) {
         .halign(Align::Center)
         .label("Load Save Game")
         .build();
-
-    option_box.append(&home_label);
-    option_box.append(&start_new);
+    load_save.add_css_class("home_button");
     option_box.append(&load_save);
 
-    window.set_child(Some(&option_box));
+    // Add the option_box to the Overlay
+    overlay.add_overlay(&option_box);
+
+    // Set the Overlay as the child of the window
+    window.set_child(Some(&overlay));
+
     window.show();
 }
-
