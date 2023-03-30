@@ -9,6 +9,7 @@ fn main() -> glib::ExitCode {
         Default::default(),
     );
 
+    application.connect_startup(|_| gui::load_css());
     application.connect_activate(gui::build_ui);
     application.run()
 }
