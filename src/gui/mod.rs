@@ -1,6 +1,6 @@
 use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext, Orientation};
 use gtk4::gdk::Display;
-use gtk4::prelude::{BoxExt, GtkWindowExt, WidgetExt};
+use gtk4::prelude::*;
 
 pub(crate) fn load_css() {
     let provider = CssProvider::new();
@@ -13,17 +13,13 @@ pub(crate) fn load_css() {
     );
 }
 
-fn new_window(app: &Application, title: &str) -> ApplicationWindow {
-    return ApplicationWindow::builder()
+pub(crate) fn build_home(app: &Application) {
+    let window = ApplicationWindow::builder()
         .application(app)
-        .title(title)
+        .title("Inside The Park Baseball '23")
         .default_width(1000)
         .default_height(600)
         .build();
-}
-
-pub(crate) fn home_screen(app: &Application) {
-    let window = new_window(app, "Inside Of The Park Baseball");
 
     let home_box: Box = Box::builder()
         .orientation(Orientation::Vertical)

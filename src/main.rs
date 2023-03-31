@@ -10,6 +10,6 @@ fn main() -> glib::ExitCode {
     );
 
     application.connect_startup(|_| gui::load_css());
-    application.connect_activate(gui::home_screen);
+    application.connect_activate(|app| gui::build_home(app));
     application.run()
 }
