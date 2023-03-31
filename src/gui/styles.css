@@ -1,11 +1,5 @@
-
 window {
-    background-color: #2f2e2e;
-}
-
-.background_image {
-    width: 100%;
-    height: 100%;
+    background-color: #2d516c;
 }
 
 .home_button {
@@ -15,4 +9,5 @@ window {
 .home_title {
     font-family: "monospace";
     font-size: 50px;
+    color: whitesmoke;
 }

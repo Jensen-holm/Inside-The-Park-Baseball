@@ -21,7 +21,7 @@ pub(crate) fn build_ui(app: &Application) {
         .default_height(600)
         .build();
 
-    let option_box: Box = Box::builder()
+    let home_box: Box = Box::builder()
         .orientation(Orientation::Vertical)
         .build();
 
@@ -32,7 +32,7 @@ pub(crate) fn build_ui(app: &Application) {
         .valign(Align::Center)
         .build();
     home_label.add_css_class("home_title");
-    option_box.append(&home_label);
+    home_box.append(&home_label);
 
     let start_new: Button = Button::builder()
         .margin_top(200)
@@ -44,7 +44,7 @@ pub(crate) fn build_ui(app: &Application) {
         .label("Start New Game")
         .build();
     start_new.add_css_class("home_button");
-    option_box.append(&start_new);
+    home_box.append(&start_new);
 
     let load_save: Button = Button::builder()
         .margin_top(10)
@@ -56,8 +56,8 @@ pub(crate) fn build_ui(app: &Application) {
         .label("Load Save Game")
         .build();
     load_save.add_css_class("home_button");
-    option_box.append(&load_save);
+    home_box.append(&load_save);
 
-    window.set_child(Some(&option_box));
+    window.set_child(Some(&home_box));
     window.show();
 }
