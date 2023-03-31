@@ -13,13 +13,17 @@ pub(crate) fn load_css() {
     );
 }
 
-pub(crate) fn build_ui(app: &Application) {
-    let window = ApplicationWindow::builder()
+fn new_window(app: &Application, title: &str) -> ApplicationWindow {
+    return ApplicationWindow::builder()
         .application(app)
-        .title("Baseball Simulator Hub")
+        .title(title)
         .default_width(1000)
         .default_height(600)
         .build();
+}
+
+pub(crate) fn home_screen(app: &Application) {
+    let window = new_window(app, "Inside Of The Park Baseball");
 
     let home_box: Box = Box::builder()
         .orientation(Orientation::Vertical)
