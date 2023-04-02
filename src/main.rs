@@ -5,7 +5,7 @@ use gtk4::prelude::{ApplicationExt, ApplicationExtManual};
 
 fn main() -> glib::ExitCode {
     let application = Application::new(
-        Some("com.github.Jensen-holm.bbref_sim_app"),
+        Some("com.github.Jensen-holm.Inside-The-Park-Bsbl"),
         Default::default(),
     );
 
