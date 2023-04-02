@@ -1,6 +1,8 @@
 use gtk4::{Align, Application, ApplicationWindow, Button, Box, Label, CssProvider, StyleContext, Orientation};
 use gtk4::gdk::Display;
 use gtk4::prelude::*;
+use gtk4::glib::clone;
+use std::rc::Rc;
 
 pub(crate) fn load_css() {
     let provider = CssProvider::new();
@@ -34,6 +36,8 @@ pub(crate) fn build_home(app: &Application) {
     home_label.add_css_class("home_title");
     home_box.append(&home_label);
 
+    let app_rc = Rc::new(app.clone()); // Wrap app in an Rc pointer
+
     let start_new: Button = Button::builder()
         .margin_top(200)
         .margin_bottom(10)
@@ -44,6 +48,13 @@ pub(crate) fn build_home(app: &Application) {
         .label("Start New Game")
         .build();
     start_new.add_css_class("home_button");
+
+    // Clone the Rc pointer and move it into the closure
+    start_new.connect_clicked(clone!(@strong app_rc => move |_| {
+        let new_win = new_window(&app_rc); // Use the cloned Rc pointer
+        new_win.show();
+    }));
+
     home_box.append(&start_new);
 
     let load_save: Button = Button::builder()
@@ -60,4 +71,12 @@ pub(crate) fn build_home(app: &Application) {
 
     window.set_child(Some(&home_box));
     window.show();
+}
+
+
+pub(crate) fn new_window(app: &Application) -> ApplicationWindow {
+    return ApplicationWindow::builder()
+        .application(app)
+        .build();
+
 }
